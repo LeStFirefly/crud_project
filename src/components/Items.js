@@ -16,6 +16,7 @@ function Items(props) {
             <Item 
               data={elem} 
               index={++index} 
+              key={elem._id}
               getItems={props.getItems} 
             />
           )}

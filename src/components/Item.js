@@ -72,7 +72,7 @@ class Item extends React.Component {
     } = this.state;
 
     return (
-            <tr key={this.props.data._id}>
+            <tr>
                 <td className='text-center'><b>{this.props.index}</b></td>
                 <td>
                   <input 
