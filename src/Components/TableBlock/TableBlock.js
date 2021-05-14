@@ -8,9 +8,16 @@ export default class TableBlock extends Component {
         users: [],
     }
     
-    async componentDidMount() {
-        await this.getInfo()
+    componentDidMount() {
+        this.getInfo()
             .then(res => this.setState({users: res}));
+    }
+
+    componentDidUpdate(prevState) {
+        if (this.state.users !== prevState.users) {
+            this.getInfo()
+                .then(res => this.setState({users: res}));
+        }
     }
 
     getInfo = async () => {
@@ -30,7 +37,7 @@ export default class TableBlock extends Component {
         const {users} = this.state;
         let items = users.map ( (item, index) => {
             return(
-                <TableBlockItem key={item._id} index={index+1} name={item.data.name} age={item.data.age}/>
+                <TableBlockItem key={item._id} index={index+1} name={item.data.name} age={item.data.age} id={item._id}/>
             )
         });
 

@@ -5,3 +5,8 @@
 .addButton {
     width: 100%;
 }
+
+.alert {
+    display:none;
+    margin-top: 10px;
+}
