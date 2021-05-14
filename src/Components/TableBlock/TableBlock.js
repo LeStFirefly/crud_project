@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import TableBlockItem from '../TableBlockItem';
+import { Table } from 'reactstrap';
 
+import './TableBlock.css'
 export default class TableBlock extends Component {
-    componentDidMount() {
-        this.getInfo()
-            .then(res => console.log(res));
+    state = {
+        users: [],
+    }
+    
+    async componentDidMount() {
+        await this.getInfo()
+            .then(res => this.setState({users: res}));
     }
 
     getInfo = async () => {
@@ -20,10 +27,28 @@ export default class TableBlock extends Component {
     }
 
     render() {
-        return(
-            <div className='tableBlock'>
-                table component
-            </div>
+        const {users} = this.state;
+        let items = users.map ( (item, index) => {
+            return(
+                <TableBlockItem key={item._id} index={index+1} name={item.data.name} age={item.data.age}/>
+            )
+        });
+
+        return(          
+            <Table>
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {items}
+                </tbody> 
+            </Table>
         )
     }
 }
