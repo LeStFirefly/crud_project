@@ -18,12 +18,13 @@ export default class PutNewItem extends Component {
       document.getElementById('emptyUsername').style.display = 'none';
       document.getElementById('emptyAge').style.display = 'none';
       newUsername = newUsername[0].toUpperCase() + newUsername.slice(1);
-      //console.log(newUsername+' '+newAge);
       await this.putNewItem(newUsername, newAge);
+      document.getElementById('newUsername').value = '';
+      document.getElementById('newAge').value = '';
     }
   }
 
-  putNewItem = (name, age) => {
+  putNewItem = async (name, age) => {
     const _api = 'http://178.128.196.163:3000/api/records';
     const headers = {
       'Content-Type': 'application/json'
@@ -35,24 +36,22 @@ export default class PutNewItem extends Component {
       }
     };
 
-    return fetch(_api, {
+    return await fetch(_api, {
       method: 'PUT',
       body: JSON.stringify(body),
       headers
-    }).then (response => {
-      if (response.ok) {
-          console.log(response.json())
-      } else {
-          return response.json().then(error => {
-              const e = new Error('Что-то пошло не так');
-              e.data = error;
-              throw e;
-          })                
-    }
-     
-  })
-
-
+    })
+      .then (response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            return response.json().then(error => {
+                const e = new Error('Что-то пошло не так');
+                e.data = error;
+                throw e;
+              })                
+        }
+      }) 
   }
 
   render() {

@@ -33,11 +33,29 @@ export default class TableBlock extends Component {
         return await res.json();
     }
 
+    deleteItem = async (id) => {
+        const _api = `http://178.128.196.163:3000/api/records/${id}`;
+        await fetch(_api, {method: 'DELETE'})
+            .then (response => {
+                if (!response.ok) {
+                    return response.json().then(error => {
+                        const e = new Error('Что-то пошло не так');
+                        e.data = error;
+                        throw e;
+                    }) 
+                }
+            })
+    }
+
+    updateItem = async (id) => {
+        console.log('update');
+    }
+
     render() {
         const {users} = this.state;
         let items = users.map ( (item, index) => {
             return(
-                <TableBlockItem key={item._id} index={index+1} name={item.data.name} age={item.data.age} id={item._id}/>
+                <TableBlockItem key={item._id} index={index+1} name={item.data.name} age={item.data.age} id={item._id} onDelete={this.deleteItem} onUpdate={this.updateItem}/>
             )
         });
 
