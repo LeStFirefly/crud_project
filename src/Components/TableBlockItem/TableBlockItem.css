@@ -1,3 +1,29 @@
 .icons {
     cursor: pointer;
 }
+
+.hiddenItem {
+    display: none !important;
+}
+
+.justifyIcons {
+    padding: 10px;
+}
+
+.itemRow {
+   height: 54px;
+}
+
+td {
+    vertical-align: baseline;
+}
+
+.cancelButton {
+    margin-left: 10px;
+}
+
+.miniAlert{
+    color:red;
+    margin: 0;
+    display: none;
+}
